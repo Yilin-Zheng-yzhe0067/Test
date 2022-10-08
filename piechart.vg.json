@@ -1,0 +1,18 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "A simple pie chart with embedded data.",
+    "width": 200,
+    "height": 200,
+    "data": {
+        "url": "https://raw.githubusercontent.com/Yilin-Zheng-yzhe0067/Test/main/data/piechart.csv"
+    },
+    "mark": { "type": "arc", "tooltip": true, "innerRadius": 50 },
+    "encoding": {
+        "color": { "field": "GREENHOUSE GAS SOURCE AND SINK CATEGORIES", "type": "nominal", "title": "Greenhouse Gas Categories" },
+        "theta": { "field": "2019", "type": "quantitative", "stack": "normalize" },
+        "tooltip": [
+            { "field": "Greenhouse Gas Categories", "type": "nominal" },
+            { "field": "2019", "type": "quantitative", "title": "C02 Emission" }
+        ]
+    }
+}

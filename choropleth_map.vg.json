@@ -1,0 +1,66 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Pollution in AUS 2005-2019",
+    "width": 800,
+    "height": 400,
+    "projection": { "type": "identity", "reflectY": true },
+    "layer": [{
+            "data": {
+                "url": "https://raw.githubusercontent.com/Yilin-Zheng-yzhe0067/Test/main/data/map.topojson?token=GHSAT0AAAAAABZEZL6OIK32EWIUZ5H7IWSKYZZEPLA",
+                "format": { "type": "topojson", "feature": "STE_2016_AUST" }
+            },
+            "params": [
+                { "name": "highlight", "select": { "type": "point", "on": "mouseover" } },
+                { "name": "select", "select": "point" }
+            ],
+            "transform": [{
+                "lookup": "properties.STE_NAME16",
+                "from": {
+                    "data": {
+                        "url": "https://raw.githubusercontent.com/Yilin-Zheng-yzhe0067/FIT3179_Week9/main/data/CO2.csv"
+                    },
+                    "key": "State",
+                    "fields": ["Greenhouse Gas Emission Change from 2005-2019 (%)"]
+                }
+            }],
+            "mark": {
+                "type": "geoshape",
+                "opacity": 0.5
+            },
+            "encoding": {
+                "color": {
+                    "field": "Greenhouse Gas Emission Change from 2005-2019 (%)",
+                    "type": "quantitative",
+                    "scale": { "type": "linear", "scheme": "goldgreen", "reverse": true },
+                    "title": "Percentage of CO2 Change"
+                },
+                "strokeWidth": { "value": 1 },
+                "tooltip": [
+                    { "field": "properties.STE_NAME16", "type": "nominal", "title": "State" },
+                    { "field": "Greenhouse Gas Emission Change from 2005-2019 (%)", "type": "quantitative", "title": "Percentage of CO2 change" }
+                ]
+            }
+        },
+        {
+            "data": { "url": "https://raw.githubusercontent.com/Yilin-Zheng-yzhe0067/FIT3179_Week9/main/data/pmair.csv" },
+            "transform": [{ "calculate": "datum.pollu", "as": "ppp" }],
+            "mark": { "type": "circle" },
+            "encoding": {
+                "size": {
+                    "field": "ppp",
+                    "type": "quantitative",
+                    "title": "Percentage PM2.5 Change (scale)",
+                    "scale": { "type": "linear" }
+                },
+                "longitude": { "field": "longitude", "type": "quantitative" },
+                "latitude": { "field": "latitude", "type": "quantitative" },
+                "tooltip": [
+                    { "field": "Country", "type": "nominal" },
+                    { "field": "ppp", "type": "quantitative", "title": "Percentage PM2.5 Change" }
+                ]
+
+            }
+        }
+    ]
+
+}
