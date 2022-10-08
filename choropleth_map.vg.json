@@ -1,8 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Pollution in AUS 2005-2019",
-    "width": 800,
-    "height": 400,
     "projection": { "type": "identity", "reflectY": true },
     "layer": [{
             "data": {
